@@ -88,15 +88,13 @@ class Creature {
   //Class methods
   
   public void drawCreature() {
-    //draws creatures as circles (temp)
-    circle(xpos, ypos, 50);
+    //Draws creatures as circles (temp)
     
+    circle(xpos, ypos, 50);
   }
   
   public void update() {
-    //updates the creatures based on environment and previous actions
-    
-    //updates internalclock and adds speed if over a certain threshold
+    //Updates internalclock and adds speed if over a certain threshold
     internalclock += internalclockrate;
     if (internalclock > 100 && spd == 0) {
       internalclock = 0.0;
@@ -104,7 +102,7 @@ class Creature {
       spd += maxspd;
     }
     
-    //applies friction to speed and disallows speed from being below 0.0
+    //Applies friction to speed and disallows speed from being below 0.0
     if (spd >= friction) {
       spd -= friction;
     }
@@ -112,11 +110,12 @@ class Creature {
       spd = 0.0;
     }
     
+    //Movement function
     this.move();
   }
   
   public void move() {
-    //moves creature depending on direction and speed
+    //Moves creature depending on direction and speed
     if (spd != 0) {
       xpos += int(cos(dir) * spd);
       ypos += int(sin(dir) * spd);
