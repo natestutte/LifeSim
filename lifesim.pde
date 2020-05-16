@@ -26,8 +26,8 @@ void setup() {
   //Font setup
   font_trebuchetms = createFont("Trebuchet MS", 30, true);
   
-  for (int a = 0;a < 50;a++) {
-    livecreatures.add(new Creature(windowsize[0]/2, windowsize[1]/2));
+  for (int a = 0;a < 20;a++) {
+    livecreatures.add(new Creature(int(random(windowsize[0])), int(random(windowsize[1])), 50));
   }
 }
 
@@ -37,7 +37,7 @@ void draw() {
   
   //Check for dragmode
   if (dragmode) {
-    coordsdisplacement = dragscreen(mouseX, mouseY, neworigincoords);
+    coordsdisplacement = dragdifference(mouseX, mouseY, neworigincoords);
   }
   else {
     for (int i = 0 ; i < 2 ; i++) {
@@ -102,15 +102,4 @@ void mouseWheel(MouseEvent event) {
       camerazoom += 0.2;
     }
   }
-}
-
-int[] dragscreen(int mousex, int mousey, int[] coords) {
-  //Takes in set of coordinates and returns the difference in coordinates divided by the camera zoom
-  //(camerazoom is used to scale the drag speed depending on how zoomed in the camera is)
-  int[] returncoords = new int[2];
-  
-  returncoords[0] = int((coords[0] - mousex) / camerazoom);
-  returncoords[1] = int((coords[1] - mousey) / camerazoom);
-  
-  return returncoords;
 }
