@@ -5,15 +5,17 @@ class Creature {
   //Genetic Variables - maxspd, internalclockrate
   
   private int xpos, ypos;
+  private int radius;
   private float dir, spd, maxspd;
   private float internalclock, internalclockrate;
   
   //Class Constructor(s)
   //May delete overloading constructors if they are unused
   
-  public Creature(int xpos, int ypos, float dir, float spd) {
+  public Creature(int xpos, int ypos, float dir, float spd, int radius) {
     this.xpos         = xpos;
     this.ypos         = ypos;
+    this.radius       = radius;
     this.dir          = dir;
     this.spd          = spd;
     internalclock     = 0.0;
@@ -22,9 +24,10 @@ class Creature {
     maxspd            = random(6)+6;
   }
   
-  public Creature(int xpos, int ypos) {
+  public Creature(int xpos, int ypos, int radius) {
     this.xpos         = xpos;
     this.ypos         = ypos;
+    this.radius       = radius;
     dir = spd         = 0.0;
     internalclock     = 0.0;
     
@@ -34,6 +37,7 @@ class Creature {
   
   public Creature() {
     xpos = ypos       = 0;
+    radius            = 50;
     dir = spd         = 0.0;
     internalclock     = 0.0;
     
@@ -54,6 +58,10 @@ class Creature {
   public int[] getpos() {
     final int[] pos = {xpos, ypos};
     return pos;
+  }
+  
+  public int getradius() {
+    return radius;
   }
   
   public float getdir() {
@@ -77,6 +85,10 @@ class Creature {
     this.ypos = pos[1];
   }
   
+  public void setradius(int radius) {
+    this.radius = radius;
+  }
+  
   public void setdir(float dir) {
     this.dir = dir;
   }
@@ -90,7 +102,7 @@ class Creature {
   public void drawCreature() {
     //Draws creatures as circles (temp)
     
-    circle(xpos, ypos, 50);
+    circle(xpos, ypos, radius);
   }
   
   public void update() {
@@ -120,5 +132,12 @@ class Creature {
       xpos += int(cos(dir) * spd);
       ypos += int(sin(dir) * spd);
     }
+  }
+  
+  public boolean isequalto(Creature c) {
+    if (this == c) {
+      return true;
+    }
+    return false;
   }
 }
