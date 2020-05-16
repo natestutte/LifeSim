@@ -7,6 +7,8 @@ int[] coordsdisplacement = new int[2];
 int[] windowsize         = new int[2];
 ArrayList<Creature> livecreatures = new ArrayList<Creature>();
 
+PFont font_trebuchetms;
+
 //Variable Initialization
 boolean dragmode         = false;
 float friction           = 0.3;
@@ -20,6 +22,9 @@ void setup() {
   windowsize[0] = 2*displayWidth/3;
   windowsize[1] = 2*displayHeight/3;
   surface.setSize(windowsize[0], windowsize[1]);
+  
+  //Font setup
+  font_trebuchetms = createFont("Trebuchet MS", 30, true);
   
   for (int a = 0;a < 50;a++) {
     livecreatures.add(new Creature(windowsize[0]/2, windowsize[1]/2));
@@ -53,7 +58,7 @@ void draw() {
   translate(-windowsize[0] / 2, -windowsize[1] / 2);
   translate(origincoords[0] + coordsdisplacement[0], origincoords[1] + coordsdisplacement[1]);
   //Dev rect pls ignore
-  rect(0, 0, 50, 50);
+  rect((windowsize[0] / 2) - 25, (windowsize[1] / 2) - 25, 50, 50);
   for (Creature c : livecreatures) {
     c.drawCreature();
   }
