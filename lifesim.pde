@@ -26,7 +26,7 @@ void setup() {
   //Font setup
   font_trebuchetms = createFont("Trebuchet MS", 30, true);
   
-  for (int a = 0;a < 20;a++) {
+  for (int a = 0;a < 100;a++) {
     livecreatures.add(new Creature(int(random(windowsize[0])), int(random(windowsize[1])), 50));
   }
 }
