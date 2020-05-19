@@ -21,7 +21,7 @@ class Creature {
     internalclock     = 0.0;
     
     internalclockrate = random(5)+1;
-    maxspd            = random(6)+6;
+    maxspd            = random(12)+4;
   }
   
   public Creature(int xpos, int ypos, int radius) {
@@ -32,7 +32,7 @@ class Creature {
     internalclock     = 0.0;
     
     internalclockrate = random(5)+1;
-    maxspd            = random(6)+6;
+    maxspd            = random(12)+4;
   }
   
   public Creature() {
@@ -42,7 +42,7 @@ class Creature {
     internalclock     = 0.0;
     
     internalclockrate = random(5)+1;
-    maxspd            = random(6)+6;
+    maxspd            = random(12)+4;
   }
   
   //Getters and Setters
@@ -103,6 +103,8 @@ class Creature {
     //Draws creatures as circles (temp)
     
     circle(xpos, ypos, radius);
+    strokeWeight(1.5);
+    line(xpos, ypos, xpos + (cos(dir) * 8 * spd), ypos + (sin(dir) * 8 * spd));
   }
   
   public void update() {
@@ -110,7 +112,7 @@ class Creature {
     internalclock += internalclockrate;
     if (internalclock > 100 && spd == 0) {
       internalclock = 0.0;
-      dir = radians(random(360));
+      dir = random(2 * PI);
       spd += maxspd;
     }
     
