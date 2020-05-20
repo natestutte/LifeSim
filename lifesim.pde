@@ -63,6 +63,9 @@ void draw() {
     c.drawCreature();
   }
   pop();
+  
+  textSize(16);
+  text(frameRate, 10, 20);
 }
 
 void mousePressed() {
