@@ -103,8 +103,9 @@ class Creature {
     //Draws creatures as circles (temp)
     
     circle(xpos, ypos, radius);
-    strokeWeight(1.5);
+    strokeWeight((log(spd + exp(1)))*.75);
     line(xpos, ypos, xpos + (cos(dir) * 8 * spd), ypos + (sin(dir) * 8 * spd));
+    strokeWeight(1);
   }
   
   public void update() {
