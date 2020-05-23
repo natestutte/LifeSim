@@ -113,7 +113,7 @@ class Creature {
     internalclock += internalclockrate;
     if (internalclock > 100 && spd == 0) {
       internalclock = 0.0;
-      dir = random(2 * PI);
+      dir = -atan2(ypos - (windowsize[1] / 2),(windowsize[0] / 2) - xpos);
       spd += maxspd;
     }
     
