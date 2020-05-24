@@ -10,6 +10,11 @@ int[] dragdifference(int mousex, int mousey, int[] coords) {
 }
 
 public float distanceeq(int[] coords1, int[] coords2) {
+  //Distance equation between two sets of coordinates without sqrt of whole
+  return pow(coords2[0] - coords1[0], 2) + pow(coords2[1] - coords1[1], 2);
+}
+
+public float properdistanceeq(int[] coords1, int[] coords2) {
   //Normal distance equation between two sets of coordinates
   return sqrt(pow(coords2[0] - coords1[0], 2) + pow(coords2[1] - coords1[1], 2));
 }
