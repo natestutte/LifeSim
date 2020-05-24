@@ -11,7 +11,7 @@ PFont font_trebuchetms;
 
 //Variable Initialization
 boolean dragmode         = false;
-boolean ctrlpressed      = false;
+boolean linetoggle       = true;
 float friction           = 0.3;
 float camerazoom         = 1.0;
 int[] origincoords       = {0, 0};
@@ -27,9 +27,7 @@ void setup() {
   //Font setup
   font_trebuchetms = createFont("Trebuchet MS", 30, true);
   
-  for (int a = 0;a < 200;a++) {
-    livecreatures.add(new Creature(int(random(windowsize[0])), int(random(windowsize[1])), 50));
-  }
+  spawncreatures();
 }
 
 void draw() {
@@ -67,7 +65,6 @@ void draw() {
   
   textSize(16);
   text(frameRate, 10, 20);
-  println(key);
 }
 
 void mousePressed() {
@@ -127,5 +124,9 @@ void keyPressed() {
       origincoords[i] = 0;
       coordsdisplacement[i] = 0;
     }
+  }
+  //l
+  if (key == 'l') {
+    linetoggle = !linetoggle;
   }
 }

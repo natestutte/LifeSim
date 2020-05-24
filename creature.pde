@@ -103,9 +103,11 @@ class Creature {
     //Draws creatures as circles (temp)
     
     circle(xpos, ypos, radius);
-    strokeWeight((log(spd + exp(1)))*.75);
-    line(xpos, ypos, xpos + (cos(dir) * 8 * spd), ypos + (sin(dir) * 8 * spd));
-    strokeWeight(1);
+    if (linetoggle) {
+      strokeWeight((log(spd + exp(1)))*.75);
+      line(xpos, ypos, xpos + (cos(dir) * 8 * spd), ypos + (sin(dir) * 8 * spd));
+      strokeWeight(1);
+    }
   }
   
   public void update() {
@@ -158,7 +160,7 @@ class Creature {
 //Common creature methods
 
 void spawncreatures() {
-  for (int a = 0;a < 200;a++) {
+  for (int a = 0;a < 500;a++) {
     livecreatures.add(new Creature(int(random(windowsize[0])), int(random(windowsize[1])), 50));
   }
 }
