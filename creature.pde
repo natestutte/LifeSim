@@ -113,7 +113,17 @@ class Creature {
     internalclock += internalclockrate;
     if (internalclock > 100 && spd == 0) {
       internalclock = 0.0;
-      dir = -atan2(ypos - (windowsize[1] / 2),(windowsize[0] / 2) - xpos);
+      int[] closestcreaturepos = new int[2];
+      float closestcreaturedist = -1.0;
+      for (Creature c : livecreatures) {
+        if (!this.isequalto(c)) {
+          if (closestcreaturedist == -1.0 || closestcreaturedist > distanceeq(c.getpos(), this.getpos())) {
+            closestcreaturepos = c.getpos();
+            closestcreaturedist = distanceeq(c.getpos(), this.getpos());
+          }
+        }
+      }
+      dir = -atan2(ypos - closestcreaturepos[1], closestcreaturepos[0] - xpos) + PI;
       spd += maxspd;
     }
     
@@ -143,4 +153,16 @@ class Creature {
     }
     return false;
   }
+}
+
+//Common creature methods
+
+void spawncreatures() {
+  for (int a = 0;a < 200;a++) {
+    livecreatures.add(new Creature(int(random(windowsize[0])), int(random(windowsize[1])), 50));
+  }
+}
+
+void snapallcreatures() {
+  livecreatures.clear();
 }
