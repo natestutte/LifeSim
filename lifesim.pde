@@ -27,7 +27,7 @@ void setup() {
   //Font setup
   font_trebuchetms = createFont("Trebuchet MS", 30, true);
   
-  spawncreatures();
+  spawncreatures(200);
 }
 
 void draw() {
@@ -116,7 +116,7 @@ void keyPressed() {
       coordsdisplacement[i] = 0;
     }
     snapallcreatures();
-    spawncreatures();
+    spawncreatures(200);
   }
   //r
   if (key == 'r') {
