@@ -4,7 +4,7 @@ class Creature {
   
   //Genetic Variables - maxspd, internalclockrate, radius, 
   
-  private int xpos, ypos;
+  private PVector pos;
   private int radius;
   private float dir, spd, maxspd;
   private float internalclock, internalclockrate;
@@ -12,9 +12,8 @@ class Creature {
   //Class Constructor(s)
   //May delete overloading constructors if they are unused
   
-  public Creature(int xpos, int ypos, float dir, float spd, int radius) {
-    this.xpos         = xpos;
-    this.ypos         = ypos;
+  public Creature(int pos.x, int pos.y, float dir, float spd, int radius) {
+    this.pos = new PVector(pos.x, pos.y)
     this.radius       = radius;
     this.dir          = dir;
     this.spd          = spd;
@@ -24,9 +23,8 @@ class Creature {
     maxspd            = random(12)+4;
   }
   
-  public Creature(int xpos, int ypos, int radius) {
-    this.xpos         = xpos;
-    this.ypos         = ypos;
+  public Creature(int pos.x, int pos.y, int radius) {
+    this.pos = new PVector(pos.x, pos.y)
     this.radius       = radius;
     dir = spd         = 0.0;
     internalclock     = 0.0;
@@ -36,7 +34,7 @@ class Creature {
   }
   
   public Creature() {
-    xpos = ypos       = 0;
+    this.pos = new PVector(0, 0)
     radius            = 50;
     dir = spd         = 0.0;
     internalclock     = 0.0;
@@ -47,16 +45,15 @@ class Creature {
   
   //Getters and Setters
   
-  public int getxpos() {
-    return xpos;
+  public int getpos.x() {
+    return pos.x;
   }
   
-  public int getypos() {
-    return ypos;
+  public int getpos.y() {
+    return pos.y;
   }
   
   public int[] getpos() {
-    final int[] pos = {xpos, ypos};
     return pos;
   }
   
@@ -72,17 +69,16 @@ class Creature {
     return spd;
   }
   
-  public void setxpos(int xpos) {
-    this.xpos = xpos;
+  public void setpos.x(int pos.x) {
+    pos.x = pos.x;
   }
   
-  public void setypos(int ypos) {
-    this.ypos = ypos;
+  public void setpos.y(int pos.y) {
+    pos.y = pos.y;
   }
   
-  public void setpos(int[] pos) {
-    this.xpos = pos[0];
-    this.ypos = pos[1];
+  public void setpos(PVector newpos) {
+    pos = newpos;
   }
   
   public void setradius(int radius) {
@@ -102,10 +98,10 @@ class Creature {
   public void drawCreature() {
     //Draws creatures as circles
     
-    circle(xpos, ypos, radius);
+    circle(pos.x, pos.y, radius);
     if (linetoggle) {
       strokeWeight((log(spd + exp(1)))*.75);
-      line(xpos, ypos, xpos + (cos(dir) * 8 * spd), ypos + (sin(dir) * 8 * spd));
+      line(pos.x, pos.y, pos.x + (cos(dir) * 8 * spd), pos.y + (sin(dir) * 8 * spd));
       strokeWeight(1);
     }
   }
@@ -117,18 +113,18 @@ class Creature {
       internalclock = 0.0;
       
       //Find closest creature
-      int[] closestcreaturepos = new int[2];
+      PVector closestcreaturepos = new PVector();
       float closestcreaturedist = -1.0;
       for (Creature c : livecreatures) {
         if (!this.isequalto(c)) {
-          if (closestcreaturedist == -1.0 || closestcreaturedist > distanceeq(c.getpos(), this.getpos())) {
+          if (closestcreaturedist == -1.0 || closestcreaturedist > PVector.dist(c.getpos(), pos)) {
             closestcreaturepos = c.getpos();
-            closestcreaturedist = distanceeq(c.getpos(), this.getpos());
+            closestcreaturedist = PVector.dist(c.getpos(), pos);
           }
         }
       }
       
-      dir = -atan2(ypos - closestcreaturepos[1], closestcreaturepos[0] - xpos);
+      dir = -atan2(pos.y - closestcreaturepos.y, closestcreaturepos.x - pos.x);
       spd += maxspd;
     }
     
@@ -147,8 +143,8 @@ class Creature {
   public void move() {
     //Moves creature depending on direction and speed
     if (spd != 0) {
-      xpos += int(cos(dir) * spd);
-      ypos += int(sin(dir) * spd);
+      pos.x += int(cos(dir) * spd);
+      pos.y += int(sin(dir) * spd);
     }
   }
   
