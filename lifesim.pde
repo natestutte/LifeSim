@@ -6,7 +6,6 @@ int[] neworigincoords    = new int[2];
 int[] coordsdisplacement = new int[2];
 int[] windowsize         = new int[2];
 ArrayList<Creature> livecreatures = new ArrayList<Creature>();
-
 PFont font_trebuchetms;
 
 //Variable Initialization
@@ -17,6 +16,8 @@ float camerazoom         = 1.0;
 int[] origincoords       = {0, 0};
 
 void setup() {
+  frameRate(60);
+
   //Set size of window to 2/3 relative to display size
   //windowsize is the size of the window (duh)
   size(displayWidth, displayHeight);
@@ -27,6 +28,7 @@ void setup() {
   //Font setup
   font_trebuchetms = createFont("Trebuchet MS", 30, true);
   
+  //Spawn initial creatures
   spawncreatures(200);
 }
 

@@ -2,7 +2,7 @@
 
 class Creature {
   
-  //Genetic Variables - maxspd, internalclockrate
+  //Genetic Variables - maxspd, internalclockrate, radius, 
   
   private int xpos, ypos;
   private int radius;
@@ -100,7 +100,7 @@ class Creature {
   //Class methods
   
   public void drawCreature() {
-    //Draws creatures as circles (temp)
+    //Draws creatures as circles
     
     circle(xpos, ypos, radius);
     if (linetoggle) {
@@ -163,15 +163,18 @@ class Creature {
 //Common creature methods
 
 void spawncreatures(int numofspawns) {
+  //Spawns creatures in area given by windowsize
   for (int a = 0;a < numofspawns;a++) {
     livecreatures.add(new Creature(int(random(windowsize[0])), int(random(windowsize[1])), 50));
   }
 }
 
 void snapallcreatures() {
+  //Clears all creatures from population
   livecreatures.clear();
 }
 
 void createchild(Creature c1, Creature c2) {
+  //Creates child creature with random genes from given creatures (IN PROGRESS)
   return ;
 }
