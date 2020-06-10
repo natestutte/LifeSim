@@ -6,9 +6,9 @@ class Creature {
   
   private PVector pos;
   private int radius;
+  private int hunger, maxhunger;
   private float dir, spd, maxspd;
   private float internalclock, internalclockrate;
-  private float hunger, maxhunger;
 
   //Class Constructor(s)
   //May delete overloading constructors if they are unused
@@ -24,7 +24,7 @@ class Creature {
     maxspd            = random(12)+4;
 
     maxhunger         = 50;
-    hunger            = maxhunger / 2;
+    hunger            = maxhunger;
   }
   
   public Creature(int posx, int posy, int radius) {
@@ -37,7 +37,7 @@ class Creature {
     maxspd            = random(12)+4;
     
     maxhunger         = 50;
-    hunger            = maxhunger / 2;
+    hunger            = maxhunger;
   }
   
   public Creature() {
@@ -50,7 +50,7 @@ class Creature {
     maxspd            = random(12)+4;
 
     maxhunger         = 50;
-    hunger            = maxhunger / 2;
+    hunger            = maxhunger;
   }
   
   //Getters and Setters
@@ -107,10 +107,12 @@ class Creature {
   
   public void drawCreature() {
     //Draws creatures as circles
-    
+    int rate = 200 / maxhunger;
+    fill((hunger * rate) + 55);
     circle(pos.x, pos.y, radius);
     if (linetoggle) {
       strokeWeight((log(spd + exp(1)))*.75);
+      stroke(255 - ((hunger * rate) + 55));
       line(pos.x, pos.y, pos.x + (cos(dir) * 8 * spd), pos.y + (sin(dir) * 8 * spd));
       strokeWeight(1);
     }
