@@ -12,8 +12,8 @@ class Creature {
   //Class Constructor(s)
   //May delete overloading constructors if they are unused
   
-  public Creature(int pos.x, int pos.y, float dir, float spd, int radius) {
-    this.pos = new PVector(pos.x, pos.y)
+  public Creature(int posx, int posy, float dir, float spd, int radius) {
+    this.pos = new PVector(posx, posy);
     this.radius       = radius;
     this.dir          = dir;
     this.spd          = spd;
@@ -23,8 +23,8 @@ class Creature {
     maxspd            = random(12)+4;
   }
   
-  public Creature(int pos.x, int pos.y, int radius) {
-    this.pos = new PVector(pos.x, pos.y)
+  public Creature(int posx, int posy, int radius) {
+    this.pos = new PVector(posx, posy);
     this.radius       = radius;
     dir = spd         = 0.0;
     internalclock     = 0.0;
@@ -34,7 +34,7 @@ class Creature {
   }
   
   public Creature() {
-    this.pos = new PVector(0, 0)
+    this.pos = new PVector(0, 0);
     radius            = 50;
     dir = spd         = 0.0;
     internalclock     = 0.0;
@@ -45,15 +45,15 @@ class Creature {
   
   //Getters and Setters
   
-  public int getpos.x() {
+  public float getposx() {
     return pos.x;
   }
   
-  public int getpos.y() {
+  public float getposy() {
     return pos.y;
   }
   
-  public int[] getpos() {
+  public PVector getpos() {
     return pos;
   }
   
@@ -69,12 +69,12 @@ class Creature {
     return spd;
   }
   
-  public void setpos.x(int pos.x) {
-    pos.x = pos.x;
+  public void setposx(int posx) {
+    pos.x = posx;
   }
   
-  public void setpos.y(int pos.y) {
-    pos.y = pos.y;
+  public void setposy(int posy) {
+    pos.y = posy;
   }
   
   public void setpos(PVector newpos) {
@@ -110,8 +110,7 @@ class Creature {
     //Updates internalclock and adds speed if over a certain threshold
     internalclock += internalclockrate;
     if (internalclock > 100 && spd == 0) {
-      internalclock = 0.0;
-      
+      internalclock = 0;
       //Find closest creature
       PVector closestcreaturepos = new PVector();
       float closestcreaturedist = -1.0;
