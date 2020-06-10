@@ -8,7 +8,8 @@ class Creature {
   private int radius;
   private float dir, spd, maxspd;
   private float internalclock, internalclockrate;
-  
+  private float hunger, maxhunger;
+
   //Class Constructor(s)
   //May delete overloading constructors if they are unused
   
@@ -17,30 +18,39 @@ class Creature {
     this.radius       = radius;
     this.dir          = dir;
     this.spd          = spd;
+
     internalclock     = 0.0;
-    
     internalclockrate = random(5)+1;
     maxspd            = random(12)+4;
+
+    maxhunger         = 50;
+    hunger            = maxhunger / 2;
   }
   
   public Creature(int posx, int posy, int radius) {
     this.pos = new PVector(posx, posy);
     this.radius       = radius;
     dir = spd         = 0.0;
+
     internalclock     = 0.0;
-    
     internalclockrate = random(5)+1;
     maxspd            = random(12)+4;
+    
+    maxhunger         = 50;
+    hunger            = maxhunger / 2;
   }
   
   public Creature() {
     this.pos = new PVector(0, 0);
     radius            = 50;
     dir = spd         = 0.0;
+
     internalclock     = 0.0;
-    
     internalclockrate = random(5)+1;
     maxspd            = random(12)+4;
+
+    maxhunger         = 50;
+    hunger            = maxhunger / 2;
   }
   
   //Getters and Setters
@@ -107,10 +117,16 @@ class Creature {
   }
   
   public void update() {
+    //Check hunger, if below 0 kill creature
+    if (hunger < 0) {
+      this.deathcall();
+    }
+
     //Updates internalclock and adds speed if over a certain threshold
     internalclock += internalclockrate;
     if (internalclock > 100 && spd == 0) {
       internalclock = 0;
+      hunger--;
       //Find closest creature
       PVector closestcreaturepos = new PVector();
       float closestcreaturedist = -1.0;
@@ -152,6 +168,10 @@ class Creature {
       return true;
     }
     return false;
+  }
+
+  public void deathcall() {
+    livecreatures.remove(this);
   }
 }
 

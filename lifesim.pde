@@ -48,7 +48,8 @@ void draw() {
   }
   
   //Update livecreatures
-  for (Creature c : livecreatures) {
+  ArrayList<Creature> tempcreatures = (ArrayList)livecreatures.clone();
+  for (Creature c : tempcreatures) {
     c.update();
   }
   
@@ -67,6 +68,7 @@ void draw() {
   
   textSize(16);
   text(frameRate, 10, 20);
+  text(livecreatures.size(), 10, 40);
 }
 
 void mousePressed() {
