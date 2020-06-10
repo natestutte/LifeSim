@@ -16,7 +16,7 @@ float camerazoom         = 1.0;
 int[] origincoords       = {0, 0};
 
 void setup() {
-  frameRate(120);
+  frameRate(60);
 
   //Set size of window to 2/3 relative to display size
   //windowsize is the size of the window (duh)
