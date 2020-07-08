@@ -6,6 +6,7 @@ int[] neworigincoords    = new int[2];
 int[] coordsdisplacement = new int[2];
 int[] windowsize         = new int[2];
 ArrayList<Creature> livecreatures = new ArrayList<Creature>();
+ArrayList<Food> worldfood = new ArrayList<Food>();
 PFont font_trebuchetms;
 
 //Variable Initialization
@@ -30,6 +31,7 @@ void setup() {
   
   //Spawn initial creatures
   spawncreatures(200);
+  spawnfood(100);
 }
 
 void draw() {
@@ -61,9 +63,10 @@ void draw() {
   translate(origincoords[0] + coordsdisplacement[0], origincoords[1] + coordsdisplacement[1]);
   //Dev rect pls ignore
   rect((windowsize[0] / 2) - 25, (windowsize[1] / 2) - 25, 50, 50);
-  for (Creature c : livecreatures) {
+  for (Food f : worldfood)
+    f.drawFood();
+  for (Creature c : livecreatures)
     c.drawCreature();
-  }
   pop();
   
   textSize(16);
