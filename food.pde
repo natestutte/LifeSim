@@ -47,6 +47,10 @@ class Food {
         circle(pos.x, pos.y, size);
     }
 
+    public void removefood() {
+        worldfood.remove(this);
+    }
+
 }
 
 void spawnfood(int numofspawns) {
