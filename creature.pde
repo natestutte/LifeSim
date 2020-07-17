@@ -152,7 +152,21 @@ class Creature {
     else {
       spd = 0.0;
     }
+
+    //Consuming food
+    ArrayList<Food> currentfood = (ArrayList)worldfood.clone();
+    for (Food f : currentfood) {
+      if (PVector.dist(f.getpos(), pos) < (radius + f.size)) {
+        hunger += f.size;
+        f.removefood();
+        spawnfood(1);
+      }
+    }
     
+    if (hunger > maxhunger) {
+      hunger = maxhunger;
+    }
+
     //Movement function
     this.move();
   }
