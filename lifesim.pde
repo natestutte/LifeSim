@@ -12,6 +12,7 @@ PFont font_trebuchetms;
 //Variable Initialization
 boolean dragmode         = false;
 boolean linetoggle       = true;
+boolean sighttoggle      = false;
 float friction           = 0.3;
 float camerazoom         = 1.0;
 int[] origincoords       = {0, 0};
@@ -135,5 +136,9 @@ void keyPressed() {
   //l
   if (key == 'l') {
     linetoggle = !linetoggle;
+  }
+  //k
+  if (key == 'k') {
+    sighttoggle = !sighttoggle;
   }
 }
