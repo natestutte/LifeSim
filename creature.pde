@@ -5,7 +5,7 @@ class Creature {
   //Genetic Variables - maxspd, internalclockrate, radius, 
   
   private PVector pos;
-  private int radius;
+  private int radius, sightrange;
   private int hunger, maxhunger;
   private float dir, spd, maxspd;
   private float internalclock, internalclockrate;
@@ -13,11 +13,12 @@ class Creature {
   //Class Constructor(s)
   //May delete overloading constructors if they are unused
   
-  public Creature(int posx, int posy, float dir, float spd, int radius) {
+  public Creature(int posx, int posy, float dir, float spd, int radius, int sightrange) {
     this.pos = new PVector(posx, posy);
     this.radius       = radius;
     this.dir          = dir;
     this.spd          = spd;
+    this.sightrange   = sightrange;
 
     internalclock     = 0.0;
     internalclockrate = random(5)+1;
@@ -31,6 +32,7 @@ class Creature {
     this.pos = new PVector(posx, posy);
     this.radius       = radius;
     dir = spd         = 0.0;
+    this.sightrange   = 500;
 
     internalclock     = 0.0;
     internalclockrate = random(5)+1;
@@ -44,6 +46,7 @@ class Creature {
     this.pos = new PVector(0, 0);
     radius            = 50;
     dir = spd         = 0.0;
+    this.sightrange   = 500;
 
     internalclock     = 0.0;
     internalclockrate = random(5)+1;
@@ -78,6 +81,10 @@ class Creature {
   public float getspd() {
     return spd;
   }
+
+  public int getsightrange() {
+    return sightrange;
+  }
   
   public void setposx(int posx) {
     pos.x = posx;
@@ -102,6 +109,10 @@ class Creature {
   public void setspd(float spd) {
     this.spd = spd;
   }
+
+  public void setsightrange(int sr) {
+    sightrange = sr;
+  }
   
   //Class methods
   
@@ -116,6 +127,12 @@ class Creature {
       line(pos.x, pos.y, pos.x + (cos(dir) * 8 * spd), pos.y + (sin(dir) * 8 * spd));
       strokeWeight(1);
     }
+    if (sighttoggle) {
+      fill(0, 20);
+      strokeWeight(0);
+      circle (pos.x, pos.y, sightrange);
+      strokeWeight(1);
+    }
   }
   
   public void update() {
@@ -124,24 +141,35 @@ class Creature {
       this.deathcall();
     }
 
+    //Consuming food
+    ArrayList<Food> currentfood = (ArrayList)worldfood.clone();
+    for (Food f : currentfood) {
+      if (PVector.dist(f.getpos(), pos) < ((radius / 2) + (f.size / 2))) {
+        hunger += f.size;
+        f.removefood();
+        spawnfood(1);
+      }
+    }
+
     //Updates internalclock and adds speed if over a certain threshold
     internalclock += internalclockrate;
     if (internalclock > 100 && spd == 0) {
       internalclock = 0;
       hunger--;
-      //Find closest creature
-      PVector closestcreaturepos = new PVector();
-      float closestcreaturedist = -1.0;
-      for (Creature c : livecreatures) {
-        if (!this.isequalto(c)) {
-          if (closestcreaturedist == -1.0 || closestcreaturedist > PVector.dist(c.getpos(), pos)) {
-            closestcreaturepos = c.getpos();
-            closestcreaturedist = PVector.dist(c.getpos(), pos);
-          }
+      //Find closest object
+      PVector closestobject = new PVector();
+      float closestobjectdist = -1.0;
+      for (Food f : worldfood) {
+        if ((closestobjectdist == -1.0 || closestobjectdist > PVector.dist(f.getpos(), pos)) && PVector.dist(f.getpos(), pos) < sightrange / 2) {
+          closestobject = f.getpos();
+          closestobjectdist = PVector.dist(f.getpos(), pos);
         }
       }
-      
-      dir = -atan2(pos.y - closestcreaturepos.y, closestcreaturepos.x - pos.x);
+      if (closestobject.mag() == 0.0) {
+        dir = radians(random(0, 360));
+      } else {
+        dir = -atan2(pos.y - closestobject.y, closestobject.x - pos.x);
+      }
       spd += maxspd;
     }
     
@@ -151,16 +179,6 @@ class Creature {
     }
     else {
       spd = 0.0;
-    }
-
-    //Consuming food
-    ArrayList<Food> currentfood = (ArrayList)worldfood.clone();
-    for (Food f : currentfood) {
-      if (PVector.dist(f.getpos(), pos) < (radius + f.size)) {
-        hunger += f.size;
-        f.removefood();
-        spawnfood(1);
-      }
     }
     
     if (hunger > maxhunger) {
@@ -180,6 +198,7 @@ class Creature {
   }
   
   public boolean isequalto(Creature c) {
+    //Checks if creature is equal to given creature
     if (this == c) {
       return true;
     }
@@ -187,6 +206,7 @@ class Creature {
   }
 
   public void deathcall() {
+    //Removes creature from livecreature arraylist
     livecreatures.remove(this);
   }
 }
