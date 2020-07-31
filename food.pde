@@ -55,5 +55,5 @@ class Food {
 
 void spawnfood(int numofspawns) {
     for(int a = 0;a < numofspawns;a++)
-        worldfood.add(new Food(int(random(windowsize[0])), int(random(windowsize[1])), int(random(10, 20))));
+        worldfood.add(new Food(int(random(-windowsize[0], 2 * windowsize[0])), int(random(-windowsize[1], 2 * windowsize[1])), int(random(10, 20))));
 }
