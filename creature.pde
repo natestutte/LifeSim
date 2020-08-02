@@ -155,7 +155,7 @@ class Creature {
     internalclock += internalclockrate;
     if (internalclock > 100 && spd == 0) {
       internalclock = 0;
-      hunger--;
+      hunger -= maxspd / 3;
       //Find closest object
       PVector closestobject = new PVector();
       float closestobjectdist = -1.0;
