@@ -8,6 +8,9 @@ int[] windowsize         = new int[2];
 ArrayList<Creature> livecreatures = new ArrayList<Creature>();
 ArrayList<Food> worldfood = new ArrayList<Food>();
 PFont font_trebuchetms;
+int borderlengthcreature = 1000;
+int borderlengthfood     = 5000;
+int borderlength         = 5000;
 
 //Variable Initialization
 boolean dragmode         = false;

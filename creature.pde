@@ -250,7 +250,7 @@ class Creature {
 void spawncreatures(int numofspawns) {
   //Spawns creatures in area given by windowsize
   for (int a = 0;a < numofspawns;a++) {
-    livecreatures.add(new Creature(int(random(windowsize[0])), int(random(windowsize[1])), 50));
+    livecreatures.add(new Creature(int(random(borderlengthcreature) + (windowsize[0] / 2) - (borderlengthcreature / 2) - 25), int(random(borderlengthcreature) + (windowsize[1] / 2) - (borderlengthcreature / 2) - 25), 50));
   }
 }
 
