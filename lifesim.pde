@@ -125,6 +125,8 @@ void keyPressed() {
     }
     snapallcreatures();
     spawncreatures(200);
+    removeallfood();
+    spawnfood(100);
   }
   //r
   if (key == 'r') {
