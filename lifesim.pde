@@ -19,6 +19,7 @@ int[] origincoords       = {0, 0};
 
 void setup() {
   frameRate(60);
+  surface.setResizable(true);
 
   //Set size of window to 2/3 relative to display size
   //windowsize is the size of the window (duh)
@@ -32,12 +33,17 @@ void setup() {
   
   //Spawn initial creatures
   spawncreatures(200);
-  spawnfood(100);
+  spawnfood(400);
 }
 
 void draw() {
   //Draw loop
   background(200);
+  if (windowsize[0] != width || windowsize[1] != height)
+  {
+    windowsize[0] = width;
+    windowsize[1] = height;
+  }
   
   //Check for dragmode
   if (dragmode) {
@@ -126,7 +132,7 @@ void keyPressed() {
     snapallcreatures();
     spawncreatures(200);
     removeallfood();
-    spawnfood(100);
+    spawnfood(400);
   }
   //r
   if (key == 'r') {
