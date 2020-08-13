@@ -7,25 +7,27 @@ class Creature {
   private PVector pos;
   private int radius, sightrange, directionalrange;
   private int hunger, maxhunger;
+  private int breedvalue, breedvaluemax;
   private float dir, spd, maxspd;
   private float internalclock, internalclockrate;
 
   //Class Constructor(s)
   //May delete overloading constructors if they are unused
   
-  public Creature(int posx, int posy, float dir, float spd, int radius, int sightrange, int directionalrange) {
+  public Creature(int posx, int posy, int radius, int sightrange, float internalclockrate, int maxhunger) {
     this.pos = new PVector(posx, posy);
-    this.radius           = radius;
-    this.dir              = dir;
-    this.spd              = spd;
-    this.sightrange       = sightrange;
-    this.directionalrange = directionalrange;
+    this.radius            = radius;
+    this.sightrange        = sightrange;
+    this.directionalrange  = directionalrange;
+    this.internalclockrate = internalclockrate;
+    this.maxhunger         = maxhunger
 
+    dir               = random(0, PI);
+    directionalrange  = 90;
+    spd               = 0.0;
     internalclock     = 0.0;
-    internalclockrate = random(5)+1;
     maxspd            = random(12)+4;
 
-    maxhunger         = 100;
     hunger            = maxhunger;
   }
   
@@ -250,7 +252,8 @@ class Creature {
 void spawncreatures(int numofspawns) {
   //Spawns creatures in area given by windowsize
   for (int a = 0;a < numofspawns;a++) {
-    livecreatures.add(new Creature(int(random(borderlengthcreature) + (windowsize[0] / 2) - (borderlengthcreature / 2) - 25), int(random(borderlengthcreature) + (windowsize[1] / 2) - (borderlengthcreature / 2) - 25), 50));
+    livecreatures.add(new Creature(int(random(borderlengthcreature) + (windowsize[0] / 2) - (borderlengthcreature / 2) - 25)
+    , int(random(borderlengthcreature) + (windowsize[1] / 2) - (borderlengthcreature / 2) - 25), 50));
   }
 }
 
@@ -261,5 +264,7 @@ void snapallcreatures() {
 
 void createchild(Creature c1, Creature c2) {
   //Creates child creature with random genes from given creatures (IN PROGRESS)
-  return ;
+  creatureparents = [c1, c2];
+
+  b_breedvaluemax = 
 }
