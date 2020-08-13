@@ -14,13 +14,15 @@ class Creature {
   //Class Constructor(s)
   //May delete overloading constructors if they are unused
   
-  public Creature(int posx, int posy, int radius, int sightrange, float internalclockrate, int maxhunger) {
+  public Creature(int posx, int posy, int radius, int sightrange, float internalclockrate, int maxhunger, int breedvaluemax, float maxspd) {
     this.pos = new PVector(posx, posy);
     this.radius            = radius;
     this.sightrange        = sightrange;
     this.directionalrange  = directionalrange;
     this.internalclockrate = internalclockrate;
-    this.maxhunger         = maxhunger
+    this.maxhunger         = maxhunger;
+    this.breedvaluemax     = breedvaluemax;
+    this.maxspd            = maxspd;
 
     dir               = random(0, PI);
     directionalrange  = 90;
@@ -38,6 +40,7 @@ class Creature {
     spd              = 0.0;
     sightrange       = 500;
     directionalrange = 90;
+    breedvaluemax    = random(50, 100);
 
     internalclock     = 0.0;
     internalclockrate = random(5)+1;
@@ -54,6 +57,7 @@ class Creature {
     spd              = 0.0;
     sightrange       = 500;
     directionalrange = 90;
+    breedvaluemax    = random(50, 100);
 
     internalclock     = 0.0;
     internalclockrate = random(5)+1;
@@ -96,6 +100,22 @@ class Creature {
   public int getdirectionalrange() {
     return directionalrange;
   }
+
+  public int getbreedvaluemax() {
+    return breedvaluemax;
+  }
+
+  public float getmaxspd() {
+    return maxspd;
+  }
+
+  public float geticr() {
+    return internalclockrate;
+  }
+
+  public int getmaxhunger() {
+    return maxhunger;
+  }
   
   public void setposx(int posx) {
     pos.x = posx;
@@ -127,6 +147,22 @@ class Creature {
 
   public void setdirectionalrange(int dr) {
     directionalrange = dr;
+  }
+
+  public void setbreedvaluemax(int bvm) {
+    breedvaluemax = bvm;
+  }
+
+  public void setmaxspd(int mspd) {
+    maxspd = mspd;
+  }
+
+  public void seticr(float icr) {
+    internalclockrate = icr;
+  }
+
+  public void setmaxhunger(int mhunger) {
+    maxhunger = mhunger;
   }
   
   //Class methods
@@ -266,5 +302,10 @@ void createchild(Creature c1, Creature c2) {
   //Creates child creature with random genes from given creatures (IN PROGRESS)
   creatureparents = [c1, c2];
 
-  b_breedvaluemax = 
+  b_radius = creatureparents[random(1)].getradius();
+  b_sightrange = creatureparents[random(1)].getsightrange();
+  b_internalclockrate = creatureparents[random(1)].geticr();
+  b_maxhunger = creatureparents[random(1)].getmaxhunger();
+  b_breedvaluemax = creatureparents[random(1)].getbreedvaluemax();
+  b_maxspd = creatureparents[random(1)].getmaxspd();
 }
