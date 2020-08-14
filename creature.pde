@@ -29,6 +29,7 @@ class Creature {
     spd               = 0.0;
     internalclock     = 0.0;
     maxspd            = random(12)+4;
+    breedvalue        = 0;
 
     hunger            = maxhunger;
   }
@@ -41,6 +42,7 @@ class Creature {
     sightrange       = 500;
     directionalrange = 90;
     breedvaluemax    = random(50, 100);
+    breedvalue       = 0;
 
     internalclock     = 0.0;
     internalclockrate = random(5)+1;
@@ -58,6 +60,7 @@ class Creature {
     sightrange       = 500;
     directionalrange = 90;
     breedvaluemax    = random(50, 100);
+    breedvalue       = 0;
 
     internalclock     = 0.0;
     internalclockrate = random(5)+1;
@@ -103,6 +106,10 @@ class Creature {
 
   public int getbreedvaluemax() {
     return breedvaluemax;
+  }
+
+  public int getbreedvalue() {
+    return breedvalue;
   }
 
   public float getmaxspd() {
@@ -151,6 +158,10 @@ class Creature {
 
   public void setbreedvaluemax(int bvm) {
     breedvaluemax = bvm;
+  }
+
+  public void setbreedvalue(int bv) {
+    breedvalue = bv;
   }
 
   public void setmaxspd(int mspd) {
@@ -302,10 +313,17 @@ void createchild(Creature c1, Creature c2) {
   //Creates child creature with random genes from given creatures (IN PROGRESS)
   creatureparents = [c1, c2];
 
+  c1.setbreedvalue(0);
+  c2.setbreedvalue(0);
+
   b_radius = creatureparents[random(1)].getradius();
   b_sightrange = creatureparents[random(1)].getsightrange();
   b_internalclockrate = creatureparents[random(1)].geticr();
   b_maxhunger = creatureparents[random(1)].getmaxhunger();
   b_breedvaluemax = creatureparents[random(1)].getbreedvaluemax();
   b_maxspd = creatureparents[random(1)].getmaxspd();
+  b_pos = creatureparents[random(1)].getpos();
+
+  livecreatures.add(new Creature(b_pos.x, b_pos.y, b_radius, b_sightrange, 
+    b_internalclockrate, b_maxhunger, b_breedvaluemax, b_maxspd));
 }
