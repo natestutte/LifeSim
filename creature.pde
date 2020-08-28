@@ -207,9 +207,10 @@ class Creature {
     }
 
     //Check if breeding partner is nearby
+    //If so, check if they are able to breed
     for (Creature c : livecreatures) {
       if (PVector.dist(c.getpos(), pos) < sightrange / 2 && !isequalto(c)) {
-        if (c.getbreedvalue() == c.getbreedvaluemax()) {
+        if (c.getbreedvalue() == c.getbreedvaluemax() && hunger > maxhunger / 2) {
           createchild(this, c);
           break;
         }
