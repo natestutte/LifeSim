@@ -81,7 +81,7 @@ class Creature {
   }
   
   public PVector getpos() {
-    return pos;
+    return pos.copy();
   }
   
   public int getradius() {
@@ -206,6 +206,16 @@ class Creature {
       this.deathcall();
     }
 
+    //Check if breeding partner is nearby
+    for (Creature c : livecreatures) {
+      if (PVector.dist(c.getpos(), pos) < sightrange / 2 && !isequalto(c)) {
+        if (c.getbreedvalue() == c.getbreedvaluemax()) {
+          createchild(this, c);
+          break;
+        }
+      }
+    }
+
     //Consuming food
     ArrayList<Food> currentfood = (ArrayList)worldfood.clone();
     for (Food f : currentfood) {
@@ -222,11 +232,11 @@ class Creature {
       internalclock = 0;
       hunger -= maxspd / 3;
       //Find closest food
-      PVector closestobject = new PVector();
+      PVector closestobjectpos = new PVector();
       float closestobjectdist = -1.0;
       for (Food f : worldfood) {
         if ((closestobjectdist == -1.0 || closestobjectdist > PVector.dist(f.getpos(), pos)) && PVector.dist(f.getpos(), pos) < sightrange / 2) {
-          closestobject = f.getpos();
+          closestobjectpos = f.getpos();
           closestobjectdist = PVector.dist(f.getpos(), pos);
         }
       }
@@ -234,11 +244,11 @@ class Creature {
       //If food is out of range, find closest creature
       //NOT IN USE CURRENTLY
 
-      // if (closestobject.mag() == 0.0) {
+      // if (closestobjectpos.mag() == 0.0) {
       //   for (Creature c : livecreatures) {
       //     if ((closestobjectdist == -1.0 || closestobjectdist > PVector.dist(c.getpos(), pos)) && PVector.dist(c.getpos(), pos) < sightrange / 2) {
       //       if (!this.isequalto(c)) {
-      //         closestobject = c.getpos();
+      //         closestobjectpos = c.getpos();
       //         closestobjectdist = PVector.dist(c.getpos(), pos);
       //       }
       //     }
@@ -246,13 +256,17 @@ class Creature {
       // }
 
       //If object is out of range, use random direction
-      if (closestobject.mag() == 0.0) {
+      if (closestobjectpos.mag() == 0.0) {
         dir = radians(random(degrees(dir) - directionalrange, degrees(dir) + directionalrange));
       } else {
         //If no random direction, use position of object to get direction
-        dir = -atan2(pos.y - closestobject.y, closestobject.x - pos.x);
+        dir = -atan2(pos.y - closestobjectpos.y, closestobjectpos.x - pos.x);
       }
       //Apply max spd to spd
+      breedvalue++;
+      if (breedvalue > breedvaluemax) {
+        breedvalue = breedvaluemax;
+      }
       spd += maxspd;
     }
     
