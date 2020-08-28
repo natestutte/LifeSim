@@ -294,6 +294,17 @@ class Creature {
       pos.x += int(cos(dir) * spd);
       pos.y += int(sin(dir) * spd);
     }
+
+    if (pos.x < (windowsize[0] / 2) - ((borderlength - 25) / 2)) {
+      pos.x += borderlength;
+    } else if (pos.x > (windowsize[0] / 2) + ((borderlength + 25) / 2)) {
+      pos.x -= borderlength;
+    }
+    if (pos.y < (windowsize[1] / 2) - ((borderlength - 25) / 2)) {
+      pos.y += borderlength;
+    } else if (pos.y > (windowsize[1] / 2) + ((borderlength + 25) / 2)) {
+      pos.y -= borderlength;
+    }
   }
   
   public boolean isequalto(Creature c) {

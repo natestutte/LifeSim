@@ -72,7 +72,10 @@ void draw() {
   translate(-windowsize[0] / 2, -windowsize[1] / 2);
   translate(origincoords[0] + coordsdisplacement[0], origincoords[1] + coordsdisplacement[1]);
   //Dev rect pls ignore
-  rect((windowsize[0] / 2) - 25, (windowsize[1] / 2) - 25, 50, 50);
+  rect((windowsize[0] / 2) - ((borderlength - 25) / 2), (windowsize[1] / 2) - ((borderlength - 25) / 2), 50, 50);
+  rect((windowsize[0] / 2) - ((borderlength - 25) / 2), (windowsize[1] / 2) + ((borderlength + 25) / 2), 50, 50);
+  rect((windowsize[0] / 2) + ((borderlength + 25) / 2), (windowsize[1] / 2) - ((borderlength - 25) / 2), 50, 50);
+  rect((windowsize[0] / 2) + ((borderlength + 25) / 2), (windowsize[1] / 2) + ((borderlength + 25) / 2), 50, 50);
   for (Food f : worldfood)
     f.drawFood();
   for (Creature c : livecreatures)
