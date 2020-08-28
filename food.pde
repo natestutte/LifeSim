@@ -68,7 +68,9 @@ class Food {
 //Spawns given num of food
 void spawnfood(int numofspawns) {
     for(int a = 0;a < numofspawns;a++)
-        worldfood.add(new Food(int(random(borderlengthfood) + (windowsize[0] / 2) - (borderlengthfood / 2) - 25), int(random(borderlengthfood) + (windowsize[1] / 2) - (borderlengthfood / 2) - 25), int(random(20, 30))));
+        worldfood.add(new Food(int(random((windowsize[0] / 2) - ((borderlengthfood - 25) / 2), (windowsize[0] / 2) + ((borderlengthfood + 25) / 2))), 
+            int(random((windowsize[1] / 2) - ((borderlengthfood - 25) / 2), (windowsize[1] / 2) + ((borderlengthfood + 25) / 2))), 
+            int(random(20, 30))));
 }
 
 //Removes all food from world
