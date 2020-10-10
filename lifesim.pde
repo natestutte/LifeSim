@@ -26,17 +26,18 @@ void setup() {
 
   //Set size of window to 2/3 relative to display size
   //windowsize is the size of the window (duh)
-  size(displayWidth, displayHeight);
-  windowsize[0] = 2*displayWidth/3;
-  windowsize[1] = 2*displayHeight/3;
-  surface.setSize(windowsize[0], windowsize[1]);
+  // size(displayWidth, displayHeight);
+  // windowsize[0] = 2*displayWidth/3;
+  // windowsize[1] = 2*displayHeight/3;
+  fullScreen();
+  // surface.setSize(windowsize[0], windowsize[1]);
   
   //Font setup
   font_trebuchetms = createFont("Trebuchet MS", 30, true);
   
   //Spawn initial creatures
   spawncreatures(200);
-  spawnfood(400);
+  spawnfood(300);
 }
 
 void draw() {
